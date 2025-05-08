@@ -17,7 +17,11 @@ if uploaded_file:
     st.image(image, caption="Uploaded Image", use_column_width=True)
 
     # OCR
-    text = pytesseract.image_to_string(image)
+    from PIL import Image
+
+# Convert Streamlit UploadedFile to PIL image
+image_pil = Image.open(image).convert("RGB")  # Ensure it's in a supported mode
+text = pytesseract.image_to_string(image_pil)
     st.subheader("Extracted Text")
     st.text(text)
 
